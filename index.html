@@ -1,203 +1,178 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Treloo - Travel Website</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Treloo</title>
   <style>
-    /* Global Styling */
-    body {
-      font-family: Arial, sans-serif;
+    * {
       margin: 0;
       padding: 0;
-      background-color: #f4f4f4;
+      box-sizing: border-box;
     }
 
-    /* Header Section */
-    header {
+    body, html {
+      font-family: Arial, sans-serif;
+      height: 100%;
+    }
+
+    .hero {
+      background: url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1600&q=80') no-repeat center center/cover;
+      height: 100vh;
+      color: white;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .navbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: 20px 40px;
+      background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    .logo {
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .nav-links a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+    }
+
+    .nav-links .blog-button {
+      background-color: #ffffff;
+      color: #333;
+      padding: 8px 16px;
+      border-radius: 20px;
+    }
+
+    .hero-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 20px;
+    }
+
+    .hero-content h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    .hero-content p {
+      font-size: 18px;
+      max-width: 600px;
+    }
+
+    .booking-form {
+      background-color: rgba(255, 255, 255, 0.9);
+      margin: 40px auto;
       padding: 20px;
+      border-radius: 10px;
+      max-width: 800px;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .switcher {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .switcher button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      background-color: #eee;
+    }
+
+    .switcher button.active {
       background-color: #333;
       color: white;
     }
 
-    header .logo img {
-      height: 40px;
+    .form-fields {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 10px;
     }
 
-    header nav ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      display: flex;
-      gap: 20px;
-    }
-
-    header nav ul li a {
-      color: white;
-      text-decoration: none;
-    }
-
-    /* Hero Section */
-    .hero {
-      background-size: cover;
-      color: white;
-      text-align: center;
-      padding: 100px 20px;
-      background-image: url('path-to-mountain-image.jpg');
-    }
-
-    .hero h1 {
-      font-size: 3em;
-      margin-bottom: 20px;
-    }
-
-    .hero p {
-      font-size: 1.2em;
-      margin-bottom: 30px;
-    }
-
-    .booking-form {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
-
-    .booking-form .form-group {
-      margin-bottom: 10px;
-    }
-
-    .booking-form input, .booking-form select {
+    .form-fields input {
       padding: 10px;
-      margin: 5px;
-      width: 200px;
-      border: 1px solid #ddd;
+      border: 1px solid #ccc;
       border-radius: 5px;
     }
 
-    .booking-form button {
-      background-color: #007bff;
+    .search-button {
+      padding: 12px;
+      background-color: #0077cc;
       color: white;
-      padding: 10px 20px;
       border: none;
+      border-radius: 5px;
+      font-size: 16px;
       cursor: pointer;
-      border-radius: 5px;
     }
+  </style>
+</head>
+<body>
 
-    /* Recommended Destinations Section */
-    .recommended-destination {
-      padding: 50px 20px;
-      text-align: center;
+  <div class="hero">
+    <div class="navbar">
+      <div class="logo">Treloo</div>
+      <div class="nav-links">
+        <a href="#">Review</a>
+        <a href="#">Tips</a>
+        <a href="#">Alerts</a>
+        <a href="#" class="blog-button">Blog</a>
+      </div>
+    </div>
+
+    <div class="hero-content">
+      <h1>Discover Your Life, Travel Where You Want</h1>
+      <p>Temukan destinasi impianmu dan buat perjalananmu jadi pengalaman tak terlupakan dengan Treloo.</p>
+
+      <div class="booking-form">
+        <div class="switcher">
+          <button class="active" onclick="switchTab('flight')">Flight</button>
+          <button onclick="switchTab('hotel')">Hotel</button>
+        </div>
+        <div class="form-fields">
+          <input type="text" placeholder="From">
+          <input type="text" placeholder="To">
+          <input type="date" placeholder="Depart">
+          <input type="date" placeholder="Return">
+        </div>
+        <button class="search-button">Search</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function switchTab(type) {
+      const buttons = document.querySelectorAll('.switcher button');
+      buttons.forEach(btn => btn.classList.remove('active'));
+      if (type === 'flight') {
+        buttons[0].classList.add('active');
+      } else {
+        buttons[1].classList.add('active');
+      }
+      // You can add logic to actually switch form inputs later
     }
+  </script>
 
-    .recommended-destination h2 {
-      font-size: 2.5em;
-      margin-bottom: 30px;
-    }
-
-    .tabs {
-      margin-bottom: 30px;
-    }
-
-    .tabs button {
-      padding: 10px 20px;
-      background-color: #ddd;
-      border: none;
-      margin: 0 10px;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-
-    .destination-cards {
-      display: flex;
-      justify-content: space-around;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-
-    .card {
-      width: 250px;
-      background-color: white;
-      border: 1px solid #ddd;
-      padding: 20px;
-      border-radius: 5px;
-      text-align: center;
-    }
-
-    .card img {
-      width: 100%;
-      height: auto;
-      border-radius: 5px;
-    }
-
-    .card-info h3 {
-      margin-top: 10px;
-      font-size: 1.2em;
-    }
-
-    .card-info p {
-      margin-top: 5px;
-    }
-
-    /* Global Destinations Section */
-    .global-destinations {
-      text-align: center;
-      padding: 50px 20px;
-      background-color: #fafafa;
-    }
-
-    .info-box {
-      display: flex;
-      justify-content: space-around;
-      margin-bottom: 30px;
-      font-size: 1.2em;
-    }
-
-    .info-box p {
-      margin: 0;
-    }
-
-    .global-destinations img {
-      width: 300px;
-      height: auto;
-      border-radius: 50%;
-      margin-bottom: 30px;
-    }
-
-    .global-destinations h3 {
-      font-size: 2em;
-      margin-bottom: 20px;
-    }
-
-    .global-destinations button {
-      background-color: #28a745;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      cursor: pointer;
-      border-radius: 5px;
-    }
-
-    /* Promo Section */
-    .promo {
-      text-align: center;
-      background-color: #f7f7f7;
-      padding: 50px;
-    }
-
-    .promo h2 {
-      font-size: 2.5em;
-      margin-bottom: 20px;
-    }
-
-    .promo button {
-      background-color: #ff5733;
-      color: white;
-      padding: 10px 20px;
-      border
 </body>
-
 </html>
